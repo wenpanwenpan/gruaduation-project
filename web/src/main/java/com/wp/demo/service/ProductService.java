@@ -168,4 +168,19 @@ public class ProductService implements IProductService<Commodity,Integer>{
         return null;
     }
 
+    /**
+     * 从数据库查找到最近上传的五件商品
+     * @return
+     */
+    public List<Commodity> findLastUpdateCommodity(){
+
+        List<Commodity> commodities = productMapper.findLastUpdateCommodity();
+        return commodities;
+    }
+
+    public Page<Commodity> viewWantBuy() {
+        Page<Commodity> commodities = productMapper.findAllWantBuyCommodities();
+
+        return commodities;
+    }
 }

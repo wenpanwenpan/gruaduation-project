@@ -1,0 +1,3 @@
+易错记录：
+该项目打包后发布到服务器中，会出现thymeleaf模板引擎找不到，原因是因为在controller控制器中的return中不需要添加/
+  eg:  return "/shopping";  需要改成 return "shopping";

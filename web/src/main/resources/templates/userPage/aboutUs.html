@@ -11,6 +11,20 @@
   <title>关于我们</title>
   <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
   <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+  <!-- animate CSS-->
+  <link href="asserts/css/animate.css"th:href="@{/asserts/css/animate.css}" rel="stylesheet" >
+  <!-- Icons CSS-->
+  <link href="asserts/css/icons.css" th:href="@{/asserts/css/icons.css}" rel="stylesheet">
+  <!-- Sidebar CSS-->
+  <link href="asserts/css/sidebar-menu.css" th:href="@{/asserts/css/sidebar-menu.css}" rel="stylesheet"/>
+  <!-- Custom Style-->
+  <link href="asserts/css/app-style.css" th:href="@{/asserts/css/app-style.css}" rel="stylesheet"/>
+  <!--favicon-->
+  <link rel="icon" href="asserts/img/favicon.ico" th:href="@{/asserts/img/favicon.ico}" type="image/x-icon">
+  <!-- simplebar CSS-->
+  <link href="asserts/css/simplebar.css" th:href="@{/asserts/css/simplebar.css}" rel="stylesheet"/>
+  <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+  <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
 </head>
 
 <body style="background-color: #F2F2F2">
@@ -20,7 +34,7 @@
   <div class="row">
     <!--sidebar:从dashboard模板中抽取出来的侧边栏公共页面引入进来-->
     <div th:replace="~{commons/bar::#sidebar(activeUri='aboutUs.html')}"></div>
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" style="margin-top: 80px">
     <h2 style="text-align: left"><span style="color: green">About Us：</span></h2><hr>
       <div class="main" style="text-align: center">
         <h4>亲爱的用户您好！</h4>
@@ -41,5 +55,11 @@
 <script type="text/javascript" src="asserts/js/jquery-3.3.1.min.js" th:src="@{/asserts/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
 <script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+<!-- simplebar js -->
+<script type="text/javascript" th:src="@{/asserts/js/simplebar.js}"></script>
+<!-- sidebar-menu js -->
+<script type="text/javascript" th:src="@{/asserts/js/sidebar-menu.js}"></script>
+<!-- Custom scripts -->
+<script type="text/javascript" th:src="@{/asserts/js/app-script.js}"></script>
 </body>
 </html>

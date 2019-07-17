@@ -85,7 +85,8 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
                         //放行静态资源
                         .excludePathPatterns("/asserts/**","/webjars/**")
                         .excludePathPatterns("/getAllCommodity","/searchByKey") //放行小程序要请求的资源
-                        .excludePathPatterns("/regist/**");     //放行注册请求
+                        .excludePathPatterns("/regist/**")     //放行注册请求
+                        .excludePathPatterns("/loginTemplate/**");
             }
         };
 

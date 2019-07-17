@@ -1,141 +1,188 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <title>抽取的模块</title>
-    </head>
-    <body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Fobia - Bootstrap 4 Web Application UI Kit</title>
+    <!-- Bootstrap core CSS-->
+    <link href="asserts/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- animate CSS-->
+    <link href="asserts/css/animate.css"th:href="@{/asserts/css/animate.css}" rel="stylesheet" >
+    <!-- Icons CSS-->
+    <link href="asserts/css/icons.css" th:href="@{/asserts/css/icons.css}" rel="stylesheet">
+    <!--favicon-->
+    <link rel="icon" href="asserts/img/favicon.ico" th:href="@{/asserts/img/favicon.ico}" type="image/x-icon">
+    <!-- Sidebar CSS-->
+    <link href="asserts/css/sidebar-menu.css" th:href="@{/asserts/css/sidebar-menu.css}" rel="stylesheet"/>
+    <!-- Custom Style-->
+    <link href="asserts/css/app-style.css" th:href="@{/asserts/css/app-style.css}" rel="stylesheet"/>
+    <!-- simplebar CSS-->
+    <link href="asserts/css/simplebar.css" th:href="@{/asserts/css/simplebar.css}" rel="stylesheet"/>
 
+
+</head>
+
+<body>
+<!-- start loader -->
+<div id="pageloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner" ><div class="loader"></div></div></div></div>
+<!-- end loader -->
+<!-- Start wrapper-->
+<div id="wrapper" >
+    <!--Start sidebar-->
+    <!--sidebar:使用thymeleaf的th:fragment或id进行公共页面抽取！！！-->
+    <div id="sidebar" data-simplebar="" data-simplebar-auto-hide="true" >
+        <div class="brand-logo">
+            <img src="/asserts/img/logo-icon.png" class="logo-icon" alt="logo icon">
+            <h5 class="logo-text">校园二手商品交易中心</h5>
+        </div>
+        <div class="user-details">
+            <div class="media align-items-center user-pointer collapsed" data-toggle="collapse" data-target="#user-dropdown">
+                <div class="avatar"><img class="mr-3 side-user-img" src="/asserts/img/touxiang.jpg"></div>
+                <div class="media-body">
+                    <h6 class="side-user-name" th:if="${session.loginUser != null}" th:text="${session.customer.uname}" >Mark Jhonsan</h6>
+                    <a class="side-user-name" th:if="${session.loginUser == null}" th:text="请登录" href="/index.html"></a>
+                </div>
+            </div>
+            <div id="user-dropdown" class="collapse">
+                <ul class="user-setting-menu">
+                    <li><a href="/user/personalInfo"><i class="icon-user"></i>我的个人信息</a></li>
+                    <li><a href="/usr/ajax/userLogout"><i class="icon-power"></i> 退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+        <ul class="sidebar-menu do-nicescrol">
+            <li class="sidebar-header">MAIN NAVIGATION</li>
+            <li>
+                <a href="/shopping/goshoppingbypage" class="waves-effect">
+                    <i style="font-size:19px;margin-right:15px;" class="zmdi zmdi-layers"></i><span>二手中心</span></i>
+                </a>
+            </li>
+            <li>
+                <a href="/usr/toOrderCar" class="waves-effect">
+                    <i class="zmdi zmdi-local-grocery-store"></i>
+                    <span>我的购物车</span> </i>
+                </a>
+            </li>
+            <li>
+                <a href="/usr/ajax/toMyOrder" class="waves-effect">
+                    <i style="font-size:14px;margin-left:2px;margin-right:4px;" class="fa fa-file"></i>
+                    <span>我的订单</span>
+                    </i>
+                </a>
+            </li>
+            <li>
+                <a href="/usr/sell" class="waves-effect">
+                    <i style="margin-right:14px;" class="zmdi zmdi-shopping-basket"></i><span>我要出售</span>
+                    </i>
+                </a>
+            </li>
+            <li>
+                <a href="/usr/analysis" class="waves-effect">
+                    <i style="font-size:19px;margin-right:15px;" class="zmdi zmdi-chart"></i><span>今日排行</span></i>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/showmap/mymap}" class="waves-effect">
+                    <i style="font-size:19px;margin-right:15px;" class="zmdi zmdi-chart"></i><span>地图导航</span></i>
+                </a>
+            </li>
+            <li>
+                <a href="javaScript:void();" class="waves-effect">
+                    <i class="zmdi zmdi-account-circle"></i> <span>个人中心</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li><a href="/user/viewContent"><i class="fa fa-hand-o-right"></i>管理留言</a></li>
+                    <li><a href="/user/manageMyCommodities"><i class="fa fa-hand-o-right"></i>管理出售</a></li>
+                    <!--<li><a href="/user/manageMyWantedCommodities"><i class="fa fa-hand-o-right"></i>管理求购</a></li>-->
+                    <li><a href="/usr/iwantbuy"><i class="fa fa-hand-o-right"></i>发布求购</a></li>
+                    <!--<li><a href="/user/viewwantbuy"><i class="fa fa-hand-o-right"></i>查看求购</a></li>-->
+                </ul>
+            </li>
+            <li>
+                <a href="/user/aboutUs" class="waves-effect">
+                    <i class="zmdi zmdi-accounts-alt"></i> <span>关于我们</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!--End sidebar-wrapper-->
+
+    <!--Start topbar header-->
+    <header class="topbar-nav">
         <!--topbar:使用 th:fragment="topbar"将顶部栏抽取出来，在其他页面进行引用-->
-        <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 collapse navbar-collapse" th:fragment="topbar">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0"  th:if="${session.loginUser != null}" th:text="'欢迎您：' + ${session.loginUser}" href="/user/modifyPersonalInfoPre">Company name</a>
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0"  th:if="${session.loginUser == null}" th:text="请登录" href="/index.html">Company name</a>
-            <input class="form-control form-control-dark w-100" th:id="seachCommodity" type="text" placeholder="Search" aria-label="Search">
-            <ul class="navbar-nav px-3">
-                <li class="nav-item text-nowrap">
-                    <a id = "userLogout" class="nav-link" href="/usr/ajax/userLogout">Sign out</a>
+        <nav style=" height: 60px;padding: 0px 15px;background-color:#3b5998;border-bottom: 1px solid #eaf2f9; z-index: 999;" class="navbar navbar-expand fixed-top" th:fragment="topbar">
+            <ul class="navbar-nav mr-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link toggle-menu" href="javascript:void();">
+                        <i class="icon-menu menu-icon"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <form class="search-bar">
+                        <input th:id="seachCommodity" type="text" class="form-control" placeholder="请输入关键字查询">
+                        <a href="#"><i class="icon-magnifier"></i></a>
+                    </form>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav align-items-center right-nav-link">
+
+                <li class="nav-item language">
+                    <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown" href="javascript:void();"><i class="fa fa-flag"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li class="dropdown-item"> <i class="flag-icon flag-icon-gb mr-2"></i> English</li>
+                        <li class="dropdown-item"> <i class="flag-icon flag-icon-fr mr-2"></i> French</li>
+                        <li class="dropdown-item"> <i class="flag-icon flag-icon-cn mr-2"></i> Chinese</li>
+                        <li class="dropdown-item"> <i class="flag-icon flag-icon-de mr-2"></i> German</li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
+                        <span class="user-profile"><img class="img-circle" src="/asserts/img/touxiang.jpg"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li class="dropdown-item user-details">
+                            <a href="javaScript:void();">
+                                <div class="media">
+                                    <div class="avatar"><img class="align-self-start mr-3" src="/asserts/img/touxiang.jpg"></div>
+                                    <div class="media-body">
+                                        <h6 class="side-user-name" th:if="${session.loginUser != null}" th:text="${session.customer.uname}" ></h6>
+                                        <a style="line-height: 48px;" class="side-user-name" th:if="${session.loginUser == null}" th:text="请登录" href="/index.html"></a>
+                                        <p class="user-subtitle" th:if="${session.loginUser != null}" th:text="${session.customer.address}"></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li class="dropdown-item"><a href="/user/personalInfo"><i class="icon-wallet mr-2"></i>个人信息</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li class="dropdown-item"><a href="/usr/ajax/userLogout"><i class="icon-power mr-2"></i>退出登录</a></li>
+                    </ul>
                 </li>
             </ul>
         </nav>
+    </header>
+    <!--End topbar header-->
+    <div class="clearfix"></div>
+</div>
 
-        <!--sidebar:使用thymeleaf的th:fragment或id进行公共页面抽取！！！-->
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar" id="sidebar" >
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    <li>
-                        <a class="nav-link" th:href="@{/shopping/goshoppingbypage}" th:class="${activeUri == 'myshopping.html'?'nav-link active':'nav-link'}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
-                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                <polyline points="2 17 12 22 22 17"></polyline>
-                                <polyline points="2 12 12 17 22 12"></polyline>
-                            </svg>
-                            二手中心
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/usr/toOrderCar}" th:class="${activeUri == 'myShoppingCar.html'?'nav-link active':'nav-link'}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
-                                <circle cx="9" cy="21" r="1"></circle>
-                                <circle cx="20" cy="21" r="1"></circle>
-                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                            </svg>
-                            我的购物车
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="myOrder" class="nav-link" href="/usr/ajax/toMyOrder" th:class="${activeUri == 'myOder.html'?'nav-link active':'nav-link'}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
-                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
-                                <polyline points="13 2 13 9 20 9"></polyline>
-                            </svg>
-                            我的订单
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#" th:href="@{/usr/sell}"
-                           th:class="${activeUri=='sell.html'?'nav-link active':'nav-link'}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                            </svg>
-                            我要出售
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a th:class="${activeUri == 'analysisResult.html'?'nav-link active':'nav-link'}" href="/usr/analysis">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2">
-                                <line x1="18" y1="20" x2="18" y2="10"></line>
-                                <line x1="12" y1="20" x2="12" y2="4"></line>
-                                <line x1="6" y1="20" x2="6" y2="14"></line>
-                            </svg>
-                            今日排行
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" th:href="@{/showmap/mymap}" th:class="${activeUri == 'map.html'?'nav-link active':'nav-link'}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
-                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                <polyline points="2 17 12 22 22 17"></polyline>
-                                <polyline points="2 12 12 17 22 12"></polyline>
-                            </svg>
-                            地图导航
-                        </a>
-                    </li>
-                </ul>
 
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Saved reports</span>
-                    <a class="d-flex align-items-center text-muted" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                    </a>
-                </h6>
-                <ul class="nav flex-column mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/user/viewContent" th:class="${activeUri == 'allContent.html'?'nav-link active':'nav-link'}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                                <line x1="16" y1="13" x2="8" y2="13"></line>
-                                <line x1="16" y1="17" x2="8" y2="17"></line>
-                                <polyline points="10 9 9 9 8 9"></polyline>
-                            </svg>
-                            查看留言
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/user/modifyPersonalInfoPre" th:class="${activeUri == 'personalInfo.html'?'nav-link active':'nav-link'}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                                <line x1="16" y1="13" x2="8" y2="13"></line>
-                                <line x1="16" y1="17" x2="8" y2="17"></line>
-                                <polyline points="10 9 9 9 8 9"></polyline>
-                            </svg>
-                            个人中心
-                        </a>
-                        <ul>
-                            <li><a href="/user/modifyPersonalInfoPre"><span style="color: #0b2e13" th:class="${activeUri == 'personalInfo.html'?'nav-link active':'nav-link'}">修改密码</span></a></li>
-                            <li><a href="/user/manageMyCommodities"><span style="color: #0b2e13"  th:class="${activeUri == 'personalInfo.html'?'nav-link active':'nav-link'}">管理出售</span></a></li>
-                        </ul>
-                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/user/aboutUs" th:class="${activeUri == 'aboutUs.html'?'nav-link active':'nav-link'}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                                <line x1="16" y1="13" x2="8" y2="13"></line>
-                                <line x1="16" y1="17" x2="8" y2="17"></line>
-                                <polyline points="10 9 9 9 8 9"></polyline>
-                            </svg>
-                             关于我们
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
 
-    </body>
+
+<!-- Bootstrap core JavaScript-->
+<script type="text/javascript"  th:src="@{/asserts/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript"  th:src="@{/asserts/js/popper.min.js}"></script>
+<script type="text/javascript"  th:src="@{/asserts/js/bootstrap.min.js}"></script>
+<!-- simplebar js -->
+<script type="text/javascript" th:src="@{/asserts/js/simplebar.js}"></script>
+<!-- sidebar-menu js -->
+<script type="text/javascript" th:src="@{/asserts/js/sidebar-menu.js}"></script>
+<!-- Custom scripts -->
+<script type="text/javascript" th:src="@{/asserts/js/app-script.js}"></script>
+</body>
 </html>

@@ -15,6 +15,15 @@ public class Commodity {
     private String tid;        //商品所属类别id，通过id关联到商品类别表中
     private String authorId;    //商品所有者的ID，通过此id关联到用户表中
     private String date;        //商品的上传日期
+    private int flag;           //标注该商品是出售的商品还是求购的商品
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
 
     public String getDate() {
         return date;
@@ -99,6 +108,8 @@ public class Commodity {
                 ", photo='" + photo + '\'' +
                 ", tid='" + tid + '\'' +
                 ", authorId='" + authorId + '\'' +
+                ", date='" + date + '\'' +
+                ", flag=" + flag +
                 '}';
     }
 }

@@ -1,78 +1,210 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>用户登录</title>
-    <link th:href="@{/asserts/css/style.css}" rel='stylesheet' type='text/css' />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="App Loction Form,Login Forms,Sign up Forms,Registration Forms,News latter Forms,Elements"./>
-    <script type="application/x-javascript">
-        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-        function hideURLbar(){ window.scrollTo(0,1); }
-    </script>
-    <!--webfonts-->
-        <!--//webfonts-->
-    <style>
-    .headImg {
-        vertical-align: middle;
-        justify-content: center;
-        align-items: center;
-        border-radius: 100px;
-    }
-    body{
-        background: url(/images/1.jpg)repeat;
-    }
-    .app-location{
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0"> 
+<title>Login</title>
+<link type="text/css" rel="stylesheet" th:href="@{/asserts/css/default.css}" href="css/default.css" />
+<!--必要样式-->
+<link type="text/css" rel="stylesheet" th:href="@{/asserts/css/styles.css}" href="css/styles.css" />
+<link type="text/css" rel="stylesheet" th:href="@{/asserts/css/demo.css}" href="css/demo.css" />
+<link type="text/css" rel="stylesheet"th:href="@{/asserts/css/loaders.css}"  href="css/loaders.css" />
+	<link type="text/css" rel="stylesheet" th:href="@{/asserts/layui/css/layui.css}" href="layui/css/layui.css" />
+</head>
 
-    }
-    .app-location input[type="text"], .app-location input[type="password"] {
-        background: url(/images/icons.png) no-repeat 14px 17px #474a55;
-    }
-    .app-location input[type="password"] {
-        background: url(/images/icons.png) no-repeat 14px -41px #474a55;
-        background-size: 11%;
-    }
-    .app-location input[type="text"],.app-location input[type="password"]{
-        background: url(/images/icons.png) no-repeat 14px 16px #474a55;
-    }
-    .app-location input[type="password"]{
-        background: url(/images/icons.png) no-repeat 13px -61px #474a55;
-    }
-    </style>
-    </head>
-    <body>
-    <h1>欢迎登陆</h1>
-    <div class="app-location" >
-        <h2>Welcome to Login</h2>
-    <div class="line">
-        <span></span>
+<body>
+<div class='login'>
+	<div class='login_title'>
+		<span>用户登录</span>
+	</div>
+	<form action="/usr/login" method="post" class="login_form">
+		<div class='login_fields'>
+			<div class='login_fields__user'>
+				<div class='icon'>
+					<img alt="" th:src="@{/asserts/img/user_icon_copy.png}" src='img/user_icon_copy.png'>
+				</div>
+				<input name="username" placeholder='用户名' maxlength="16" type='text' autocomplete="off" />
+				<div class='validation'>
+					<img alt="" th:src="@{/asserts/img/tick.png}" src='img/tick.png'>
+				</div>
+			</div>
+			<div class='login_fields__password'>
+				<div class='icon'>
+					<img alt="" th:src="@{/asserts/img/lock_icon_copy.png}" src='img/lock_icon_copy.png'>
+				</div>
+				<input name="password" placeholder='密码' maxlength="16" type='password' autocomplete="off">
+				<div class='validation'>
+					<img alt="" th:src="@{/asserts/img/tick.png}" src='img/tick.png'>
+				</div>
+			</div>
+			<div class='login_fields__password'>
+				<div class='icon'>
+					<img alt="" th:src="@{/asserts/img/key.png}" src='img/key.png'>
+				</div>
+				<input name="code" placeholder='验证码' maxlength="4" type='text' autocomplete="off">
+				<div class='validation' style="opacity: 1; right: -5px;top: -3px;">
+					<canvas class="J_codeimg" id="myCanvas" onclick="Code();">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
+				</div>
+			</div>
+			<div class='login_fields__submit'>
+				<input type='button' value='登录'>
+			</div>
+			<div class="new" style="margin-left: 30px;margin-top: 40px;">
+				<a href="/regist/registAccount" style="color:#4FA1D9;">注册账号</a>
+				<a href="/usr/switchToAdmin" style="color:#4FA1D9;margin-left: 25px;">管理员登录</a>
+			</div>
+		</div>
+	</form>
+
+	<div class='success'></div>
+	<div class='disclaimer'>
+		<p>欢迎登陆校园二手交易中心</p>
+	</div>
+</div>
+<div class='authent'>
+  <div class="loader" style="height: 44px;width: 44px;margin-left: 28px;">
+    <div class="loader-inner ball-clip-rotate-multiple">
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
-        <div class="location">
-            <img class = "headImg" th:src="@{/images/touxiang.jpg}"  alt="" />
-        </div>
-        <form  th:action="@{/usr/login}" method="post">
-            <p style="color: red" th:text="${msg}" th:if="${ not #strings.isEmpty(msg)}"></p>
-            <input type="text" class="text" name="username" value="UserName" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'userName';}" >
-            <input type="password" name="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
-            <div class="submit"><input type="submit" value="Sign in" ></div>
-
-    <div class="clear">
-        <!--<a class="btn btn-sm"  th:href="@{/index.html(l='zh_CN')}">© 中文</a>
-        <a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">© English</a>-->
     </div>
-        <div class="new">
-            <h3><a href="/regist/registAccount">注册账号 ?</a></h3>
-            <h4><a href="/usr/switchToAdmin">管理员登录</a></h4>
-        <div class="clear">
+  <p>验证登录中...</p>
+</div>
+<div class="OverWindows"></div>
 
-        </div>
-        </div>
-        </form>
-        </div>
-        <!--start-copyright-->
-        <div class="copy-right">
 
-        </div>
-        <!--//end-copyright-->
-        </body>
-        </html>
+<script type="text/javascript" th:src="@{/asserts/js/jquery.min.js}" src="js/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/asserts/js/jquery-ui.min.js}" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" th:src="@{/asserts/js/stopExecutionOnTimeout.js}" src='js/stopExecutionOnTimeout.js?t=1'></script>
+<script type="text/javascript" th:src="@{/asserts/layui/layui.js}" src="layui/layui.js"></script>
+<script type="text/javascript" th:src="@{/asserts/js/particleground.js}" src="js/particleground.js"></script>
+<script type="text/javascript" th:src="@{/asserts/js/treatment.js}" src="js/treatment.js"></script>
+<script type="text/javascript" th:src="@{/asserts/js/jquery.mockjax.js}" src="js/jquery.mockjax.js"></script>
+<script type="text/javascript">
+var canGetCookie = 0;//是否支持存储Cookie 0 不支持 1 支持
+var ajaxmockjax = 1;//是否启用虚拟Ajax的请求响 0 不启用  1 启用
+
+var CodeVal = 0;
+Code();
+function Code() {
+	if(canGetCookie == 1){
+		createCode("AdminCode");
+		var AdminCode = getCookieValue("AdminCode");
+		showCheck(AdminCode);
+	}else{
+		showCheck(createCode(""));
+	}
+}
+function showCheck(a) {
+	CodeVal = a;
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.clearRect(0, 0, 1000, 1000);
+    ctx.font = "80px 'Hiragino Sans GB'";
+    ctx.fillStyle = "#E8DFE8";
+    ctx.fillText(a, 0, 100);
+}
+$(document).keypress(function (e) {
+    // 回车键事件
+    if (e.which == 13) {
+        $('input[type="button"]').click();
+    }
+});
+//粒子背景特效
+$('body').particleground({
+    dotColor: '#E8DFE8',
+    lineColor: '#133b88'
+});
+$('input[name="pwd"]').focus(function () {
+    $(this).attr('type', 'password');
+});
+$('input[type="text"]').focus(function () {
+    $(this).prev().animate({ 'opacity': '1' }, 200);
+});
+$('input[type="text"],input[type="password"]').blur(function () {
+    $(this).prev().animate({ 'opacity': '.5' }, 200);
+});
+$('input[name="login"],input[name="pwd"]').keyup(function () {
+    var Len = $(this).val().length;
+    if (!$(this).val() == '' && Len >= 5) {
+        $(this).next().animate({
+            'opacity': '1',
+            'right': '30'
+        }, 200);
+    } else {
+        $(this).next().animate({
+            'opacity': '0',
+            'right': '20'
+        }, 200);
+    }
+});
+var open = 0;
+layui.use('layer', function () {
+
+    //非空验证
+    $('input[type="button"]').click(function () {
+        var login = $('input[name="username"]').val();
+        var pwd = $('input[name="password"]').val();
+        var code = $('input[name="code"]').val();
+        if (login == '') {
+            ErroAlert('请输入您的账号');
+        } else if (pwd == '') {
+            ErroAlert('请输入密码');
+        } else if (code == '' || code.length != 4) {
+            ErroAlert('输入验证码');
+        } else {
+
+            //验证通过
+            $.ajax({
+                url:"/usr/login",
+                type:"POST",
+                data:$(".login_form").serialize(),
+                success:function (result) {
+                    if(result == "true"){
+
+                        window.location.href="/shopping/goshoppingbypage";
+                    }else{
+                        alert("用户名或密码错误！");
+                        window.location.href="/";
+                    }
+                }
+
+            });
+
+        }
+    })
+})
+var fullscreen = function () {
+    elem = document.body;
+    if (elem.webkitRequestFullScreen) {
+        elem.webkitRequestFullScreen();
+    } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+    } else if (elem.requestFullScreen) {
+        elem.requestFullscreen();
+    } else {
+        //浏览器不支持全屏API或已被禁用  
+    }
+}  
+if(ajaxmockjax == 1){
+	$.mockjax({  
+		url: 'Ajax/Login',  
+		status: 200,  
+		responseTime: 50,          
+		responseText: {"Status":"ok","Text":"登陆成功<br /><br />欢迎回来"}  
+	}); 
+	$.mockjax({  
+		url: 'Ajax/LoginFalse',  
+		status: 200,  
+		responseTime: 50,          
+		responseText: {"Status":"Erro","Erro":"账号名或密码或验证码有误"}
+	});   
+}
+</script>
+</body>
+</html>

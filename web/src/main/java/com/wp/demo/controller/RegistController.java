@@ -26,7 +26,7 @@ public class RegistController {
     @GetMapping(value = "/regist/registAccount")
     public String userRegistPre(){
 
-        return "/regist";
+        return "regist";
     }
 
     @PostMapping(value = "/regist/userRegist")
@@ -39,7 +39,7 @@ public class RegistController {
             return "login";
         }
         map.put("msg","注册失败，请校验信息！");
-        return "/regist";
+        return "regist";
     }
 
 }

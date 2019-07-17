@@ -5,7 +5,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wp.demo.bean.Admin;
 import com.wp.demo.bean.Commodity;
+import com.wp.demo.bean.CommodityType;
+import com.wp.demo.bean.Customer;
+import com.wp.demo.service.ProductAndUserService;
 import com.wp.demo.service.ProductService;
+import com.wp.demo.utils.IPTimeStamp;
+import com.wp.demo.utils.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +19,11 @@ import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -26,6 +34,12 @@ public class ShoppingController {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    ProductAndUserService productAndUserService;
+
+    //用于生成上传的商品照片名
+    IPTimeStamp ipTimeStamp = new IPTimeStamp("192.168.1.1");
 
     private static final Logger log = LoggerFactory.getLogger(FileUploadController.class);
 
@@ -58,7 +72,7 @@ public class ShoppingController {
         List<Commodity> all = productService.findAll();
         model.addAttribute("all",all);
 
-        return "/shopping/myshopping";
+        return "shopping/myshopping";
     }
 
     /**
@@ -92,7 +106,7 @@ public class ShoppingController {
         PageInfo<Commodity> page = new PageInfo<>(commodities,5);
         model.addAttribute("pageInfo",page);
 
-        return "/shopping/myshopping";
+        return "shopping/myshopping";
     }
 
     //分页显示商品
@@ -111,7 +125,7 @@ public class ShoppingController {
         if(session.getAttribute("adminLoginUser") != null){
             return "/adminPage/myshopping";
         }
-        return "/shopping/myshopping";
+        return "shopping/myshopping";
     }
 
     /**
@@ -184,9 +198,9 @@ public class ShoppingController {
         }
         //如果是管理员登录
         if (session.getAttribute("adminLoginUser") != null){
-            return "/adminPage/myShoppingCar";
+            return "adminPage/myShoppingCar";
         }
-        return "/shopping/myShoppingCar";
+        return "shopping/myShoppingCar";
     }
 
     /**
@@ -214,10 +228,10 @@ public class ShoppingController {
        }
 
        if(session.getAttribute("adminLoginUser") != null){
-            return "/adminPage/myOrder";
+            return "adminPage/myOrder";
        }
 
-        return "/shopping/myOrder";
+        return "shopping/myOrder";
     }
 
     //处理直接从侧边栏点击去我的订单
@@ -228,10 +242,10 @@ public class ShoppingController {
         model.addAttribute("commodityMap",commodityMap);
 
         if (session.getAttribute("adminLoginUser") != null){
-            return "/adminPage/myOrder";
+            return "adminPage/myOrder";
         }
 
-        return "/shopping/myOrder";
+        return "shopping/myOrder";
     }
 
     /**
@@ -244,7 +258,7 @@ public class ShoppingController {
 
         buyCommodityUtil(model,pid+"");
 
-        return "/shopping/myOrder";
+        return "shopping/myOrder";
     }
 
     /**
@@ -356,4 +370,76 @@ public class ShoppingController {
         allpid.put(pid,count);
         return "true";
     }
+
+    /**
+     * 处理用户发布求购请求
+     * @return
+     */
+    @GetMapping(value = "/usr/iwantbuy")
+    public String iWantBuyPre(Model model){
+        //从商品表中查询出所有类型,用于显示选择框
+        List<CommodityType> allCommodityType = productService.findAllCommodityType();
+        model.addAttribute("allCommodityType",allCommodityType);
+        return "shopping/wantbuy";
+    }
+
+    @PostMapping(value = "/usr/iwantbuy")
+    public String iWantBuy(Commodity commodity,
+                           @RequestParam("file") MultipartFile file,
+                           HttpSession session, Model model) throws Exception {
+        String fileName = null;
+        //如果有照片上传
+        if(!file.isEmpty() && file.getSize() > 0){
+            log.info("[文件类型] - [{}]", file.getContentType());
+            log.info("[文件名称] - [{}]", file.getOriginalFilename());
+            log.info("[文件大小] - [{}]", file.getSize());
+            //TODO 将文件写入到指定目录（具体开发中有可能是将文件写入到云存储/或者指定目录通过 Nginx
+            //进行 gzip 压缩和反向代理，此处只是为了演示故将地址写成本地电脑指定目录）
+            fileName = ipTimeStamp.getIPTimeRand() + ".jpg";     //重新生成图片名称，保证不重复
+            file.transferTo(new File("E:\\IDEAWorkSpace\\GraduationProject\\gruaduation-project1\\web\\src\\main\\resources\\static\\images\\" + fileName));
+
+        }
+        //取得session域中的用户信息
+        Customer customer = (Customer) session.getAttribute("customer");
+
+        //设置要保存到数据库里面的照片名称
+        commodity.setPhoto(fileName);
+
+        //设置用户商品上传的日期
+        String date = UserUtils.dateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        commodity.setDate(date);
+        commodity.setFlag(1);           //设置商品的状态为求购的商品
+
+        //设置该商品所属的用户
+        commodity.setAuthorId(customer.getUid() + "");
+        boolean flag = productAndUserService.addCommodity(customer, commodity);
+        if(flag){
+            model.addAttribute("msg","发布成功！");
+        }else{
+            model.addAttribute("msg","发布失败！");
+        }
+        //从商品表中查询出所有类型,用于显示选择框
+        List<CommodityType> allCommodityType = productService.findAllCommodityType();
+        model.addAttribute("allCommodityType",allCommodityType);
+
+        return "shopping/wantbuy";
+    }
+
+    /**
+     * 查看所有的求购信息
+     * @return
+     */
+    @GetMapping(value = "/user/viewwantbuy")
+    public String viewWantBuy(@RequestParam(defaultValue = "1") int pageNo,
+                              @RequestParam(defaultValue = "15") int pageSize,
+                              Model model,
+                              HttpSession session){
+        PageHelper.startPage(pageNo, pageSize,true);
+        Page<Commodity> commodities = productService.viewWantBuy();
+        PageInfo<Commodity> page = new PageInfo<>(commodities,5);
+        model.addAttribute("pageInfo",page);
+
+        return "shopping/viewwantbuy";
+    }
+
 }

@@ -106,7 +106,7 @@ public class UserContentController {
         PageInfo<ViewContent> page = new PageInfo<>(contents,5);
         model.addAttribute("pageInfo",page);
 
-        return "/userPage/allContent";
+        return "userPage/allContent";
     }
 
     /**

@@ -11,7 +11,7 @@
 	<groupId>com.wp</groupId>
 	<artifactId>gruaduation-project1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>gruaduation-project1</name>
 	<description>毕业设二手交易平台项目</description>
 
@@ -39,6 +39,7 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!--使用外部Tomcat-->
 		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
@@ -145,6 +146,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!-- 指定该Main Class为全局的唯一入口 -->
+					<mainClass>com.wp.demo.GruaduationProject1Application</mainClass>
+					<layout>ZIP</layout>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -8,13 +8,23 @@
   <meta name="author" content="">
 
   <title>购物界面</title>
+  <!-- Custom styles for this template -->
+  <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+  <!-- animate CSS-->
+  <link href="asserts/css/animate.css"th:href="@{/asserts/css/animate.css}" rel="stylesheet" >
+  <!-- Icons CSS-->
+  <link href="asserts/css/icons.css" th:href="@{/asserts/css/icons.css}" rel="stylesheet">
+  <!-- Sidebar CSS-->
+  <link href="asserts/css/sidebar-menu.css" th:href="@{/asserts/css/sidebar-menu.css}" rel="stylesheet"/>
+  <!-- Custom Style-->
+  <link href="asserts/css/app-style.css" th:href="@{/asserts/css/app-style.css}" rel="stylesheet"/>
+  <!--favicon-->
+  <link rel="icon" href="asserts/img/favicon.ico" th:href="@{/asserts/img/favicon.ico}" type="image/x-icon">
+  <!-- simplebar CSS-->
+  <link href="asserts/css/simplebar.css" th:href="@{/asserts/css/simplebar.css}" rel="stylesheet"/>
   <!-- Bootstrap core CSS -->
   <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
   <link href="asserts/css/bootstrap.min.css" th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
-  <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
-
 
   <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
   <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -194,6 +204,14 @@
 <script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
 <!--引入自定义的js文件-->
 <script language = "javascript" th:src = "@{/asserts/js/myjs.js}"></script>
+  <!-- simplebar js -->
+  <script type="text/javascript" th:src="@{/asserts/js/simplebar.js}"></script>
+  <!-- sidebar-menu js -->
+  <script type="text/javascript" th:src="@{/asserts/js/sidebar-menu.js}"></script>
+  <!-- Custom scripts -->
+  <script type="text/javascript" th:src="@{/asserts/js/app-script.js}"></script>
+  <!--引入自定义的js文件-->
+  <script type="text/javascript" th:src = "@{/asserts/js/myjs.js}"></script>
 <script th:inline="javascript">
     //解析显示分页条
     $(function () {

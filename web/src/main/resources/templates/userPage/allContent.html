@@ -9,6 +9,21 @@
 		<title>查看评论</title>
 		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
 		<link href="asserts/css/bootstrap.min.css" th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
+		<!--favicon-->
+		<link rel="icon" href="asserts/img/favicon.ico" th:href="@{/asserts/img/favicon.ico}" type="image/x-icon">
+		<!-- animate CSS-->
+		<link href="asserts/css/animate.css"th:href="@{/asserts/css/animate.css}" rel="stylesheet" >
+		<!-- Icons CSS-->
+		<link href="asserts/css/icons.css" th:href="@{/asserts/css/icons.css}" rel="stylesheet">
+		<!-- Sidebar CSS-->
+		<link href="asserts/css/sidebar-menu.css" th:href="@{/asserts/css/sidebar-menu.css}" rel="stylesheet"/>
+		<!-- Custom Style-->
+		<link href="asserts/css/app-style.css" th:href="@{/asserts/css/app-style.css}" rel="stylesheet"/>
+		<!-- simplebar CSS-->
+		<link href="asserts/css/simplebar.css" th:href="@{/asserts/css/simplebar.css}" rel="stylesheet"/>
+
+		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+		<link href="asserts/css/bootstrap.min.css" th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
 		<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
 	</head>
 
@@ -23,16 +38,20 @@
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 					<div class="table-responsive">
 						<table class="table table-striped table-sm" style="text-align: center">
-							<thead>
-								<th style="text-align: left"><h2>全部留言:</h2></th>
+							<thead >
+								<th style="text-align: left;"><h1>-</h1></th>
 								<th>
-									<button  type="button" class="btn btn-danger removeallcontent">
-										<span class="glyphicon glyphicon-removecontent" aria-hidden="true" ></span>
-										清空留言
-									</button>
+
 								</th>
 							</thead>
 							<tbody>
+							<th style="text-align: left;"><h2>全部留言:</h2></th>
+							<th>
+								<button  type="button" class="btn btn-danger removeallcontent">
+									<span class="glyphicon glyphicon-removecontent" aria-hidden="true" ></span>
+									清空留言
+								</button>
+							</th>
 							<tr th:each="content:${pageInfo.list}">
 								<td style="text-align: left" >
 									<span th:text="${content.updateTime}"></span>
@@ -86,10 +105,16 @@
 					</div><!-- /.modal-dialog -->
 				</div>
 			</div>
-		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/asserts/js/jquery-3.3.1.min.js}" ></script>
-		<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
-		<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
-		<!--引入自定义的js文件-->
+			<<script type="text/javascript"  th:src="@{/asserts/js/jquery-3.3.1.min.js}"></script>
+			<script type="text/javascript"  th:src="@{/asserts/js/popper.min.js}"></script>
+			<script type="text/javascript"  th:src="@{/asserts/js/bootstrap.min.js}"></script>
+			<!-- simplebar js -->
+			<script type="text/javascript" th:src="@{/asserts/js/simplebar.js}"></script>
+			<!-- sidebar-menu js -->
+			<script type="text/javascript" th:src="@{/asserts/js/sidebar-menu.js}"></script>
+			<!-- Custom scripts -->
+			<script type="text/javascript" th:src="@{/asserts/js/app-script.js}"></script>
+				<!--引入自定义的js文件-->
 		<script language = "javascript" th:src = "@{/asserts/js/myjs.js}"></script>
 		<script>
 			$(function () {

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+    <title>地图导航</title>
+    <style type="text/css">
+        html{height:100%;width: 100%;}
+        body{height:100%;margin:0px;padding:20px;width: 100%;}
+        .container{
+            height:100%;
+            width: 100%;
+            vertical-align: middle;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            }
+        input {
+            width: 400px;
+            height:40px;
+            border:1px solid #dbdbdb;
+            outline:none;
+            font-size:20px;
+            text-indent:10px;
+            vertical-align: middle;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            margin-left: 300px;
+            margin-bottom: 15px;
+        }
+    </style>
+    <script src="http://api.map.baidu.com/api?v=1.4" type="text/javascript"></script>
+</head>
+<body>
+ <!--引入抽取的topbar,使用thymeleaf的语法th:replace="~{模板名::模块名或选择器}"-->
+<div th:replace="~{commons/bar::topbar}"></div>
+<!--sidebar:从dashboard模板中抽取出来的侧边栏公共页面引入进来-->
+<div th:replace="~{commons/bar::#sidebar(activeUri='map.html')}"></div>
+ 
+<main>
+    <div>
+        <input type="text" id="cityName" name="test" value="成都"/>
+        <button onclick="setCity()" value="查找" class="btn btn-success addtype" style="margin-bottom: 15px;">查找</button>
+        <div class="container" id="container" style="border-radius: 20px;width:90%;height:600px;margin-left:150px;margin-right: 100px;">
+
+        </div>
+    </div>
+</main>
+
+
+ 
+<script type="text/javascript" src="asserts/js/jquery-3.3.1.min.js" th:src="@{/asserts/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+<script type="text/javascript">
+    var map = new BMap.Map("container");        //在container容器中创建一个地图,参数container为div的id属性;
+ 
+    var point = new BMap.Point(120.2,30.25);    //创建点坐标
+    map.centerAndZoom(point,14);                //初始化地图，设置中心点坐标和地图级别
+    map.enableScrollWheelZoom();                //激活滚轮调整大小功能
+    map.addControl(new BMap.NavigationControl());    //添加控件：缩放地图的控件，默认在左上角；
+    map.addControl(new BMap.MapTypeControl());        //添加控件：地图类型控件，默认在右上方；
+    map.addControl(new BMap.ScaleControl());        //添加控件：地图显示比例的控件，默认在左下方；
+    map.addControl(new BMap.OverviewMapControl());  //添加控件：地图的缩略图的控件，默认在右下方； TrafficControl    
+ 
+    var search = new BMap.LocalSearch("中国", {
+      onSearchComplete: function(result){
+        if (search.getStatus() == BMAP_STATUS_SUCCESS){
+          var res = result.getPoi(0);
+          var point = res.point;
+          map.centerAndZoom(point,11);
+        }
+      },renderOptions: {  //结果呈现设置，
+        map: map,  
+        autoViewport: true,  
+        selectFirstResult: true 
+      } ,onInfoHtmlSet:function(poi,html){//标注气泡内容创建后的回调函数，有了这个，可以简单的改一下返回的html内容了。
+        // alert(html.innerHTML)
+      }//这一段可以不要，只不过是为学习更深层次应用而加入的。
+    });
+ 
+    function setCity(){
+      search.search(document.getElementById("cityName").value);
+    }
+    search.search(document.getElementById("cityName").value);
+
+ 
+</script>
+</body>
+</html>

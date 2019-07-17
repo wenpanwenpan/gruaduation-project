@@ -65,7 +65,7 @@ public class ShoppingControllerExtend {
         List<CommodityType> allCommodityType = productService.findAllCommodityType();
         model.addAttribute("allCommodityType",allCommodityType);
 
-        return "/shopping/sell";
+        return "shopping/sell";
     }
 
     /**
@@ -100,6 +100,7 @@ public class ShoppingControllerExtend {
         //设置用户商品上传的日期
         String date = UserUtils.dateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         commodity.setDate(date);
+        commodity.setFlag(0);           //设置商品的状态为出售的商品
 
         //设置该商品所属的用户
         commodity.setAuthorId(customer.getUid() + "");
@@ -113,7 +114,7 @@ public class ShoppingControllerExtend {
         List<CommodityType> allCommodityType = productService.findAllCommodityType();
         model.addAttribute("allCommodityType",allCommodityType);
 
-        return "/shopping/sell";
+        return "shopping/sell";
     }
 
     /**
@@ -143,7 +144,7 @@ public class ShoppingControllerExtend {
             model.addAttribute("customer",customer);
         }
 
-        return "/shopping/manageMySell";
+        return "shopping/manageMySell";
     }
 
     /**
@@ -184,7 +185,7 @@ public class ShoppingControllerExtend {
             model.addAttribute("allCommodityType",allCommodityType);
         }
 
-        return "/userPage/modifyMySellCommodity";
+        return "userPage/modifyMySellCommodity";
     }
 
     /**

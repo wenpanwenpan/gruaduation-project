@@ -1,0 +1,6 @@
+com\wp\demo\mapper\AnasislyTypeMapper.class
+com\wp\demo\format\MySQLTextOutputFormat.class
+com\wp\demo\reducer\AnasislyTypeReducer.class
+com\wp\demo\format\MySQLTextOutputFormat$MySQLRecordWriter.class
+com\wp\demo\tool\AnasislyTypeTool.class
+com\wp\demo\util\JDBCUtil.class

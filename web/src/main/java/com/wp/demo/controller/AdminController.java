@@ -65,7 +65,7 @@ public class AdminController {
         model.addAttribute("pageInfo",page);
         model.addAttribute("allCustomer",allCustomer);
 
-        return "/adminPage/manageUserCommodities";
+        return "adminPage/manageUserCommodities";
     }
 
     /**
@@ -100,10 +100,10 @@ public class AdminController {
         Customer customer = userService.findCustomerById(uid);
         model.addAttribute("customer",customer);
         if(session.getAttribute("adminLoginUser") != null){
-            return "/adminPage/userInfo";
+            return "adminPage/userInfo";
         }
 
-        return "/userPage/userInfo";
+        return "userPage/userInfo";
     }
 
     /**
@@ -136,7 +136,7 @@ public class AdminController {
         PageInfo<Customer> page = new PageInfo<>(customers,5);
         model.addAttribute("pageInfo",page);
 
-        return "/adminPage/manageAllUsers";
+        return "adminPage/manageAllUsers";
     }
 
     /**
@@ -157,7 +157,7 @@ public class AdminController {
         PageInfo<Customer> page = new PageInfo<>(customers,5);
         model.addAttribute("pageInfo",page);
 
-        return "/adminPage/manageAllUsers";
+        return "adminPage/manageAllUsers";
     }
 
     @ResponseBody
@@ -186,7 +186,7 @@ public class AdminController {
                 session.removeAttribute("loginUser");
             }
         }
-        System.out.println("执行注销用户成功！！！");
+        //System.out.println("执行注销用户成功！！！");
         return "true";
     }
 
@@ -213,10 +213,10 @@ public class AdminController {
         model.addAttribute("customer",customer);
 
         if(session.getAttribute("adminLoginUser") != null){
-            return "/adminPage/manageMySell";
+            return "adminPage/manageMySell";
         }
 
-        return "/shopping/manageMySell";
+        return "shopping/manageMySell";
     }
 
     /**
@@ -259,7 +259,7 @@ public class AdminController {
         model.addAttribute("pageInfo",page);
         model.addAttribute("allCustomer",allCustomer);
 
-        return "/adminPage/manageUserCommodities";
+        return "adminPage/manageUserCommodities";
     }
 
     /**
@@ -270,7 +270,7 @@ public class AdminController {
     public String queryTelPre(){
 
         System.out.println("收到电话查询请求！！！");
-        return "/adminPage/telHome";
+        return "adminPage/telHome";
     }
 
     /**
@@ -282,7 +282,7 @@ public class AdminController {
 
         List<CommodityType> list = productService.findAllCommodityType();
         model.addAttribute("list",list);
-        return "/adminPage/addCommodityType";
+        return "adminPage/addCommodityType";
     }
 
     /**
@@ -298,7 +298,7 @@ public class AdminController {
     @GetMapping(value = "/admin/analysismap")
     public String viewMap(){
 
-        return "/adminPage/analysisMap";
+        return "adminPage/analysisMap";
     }
 }
 

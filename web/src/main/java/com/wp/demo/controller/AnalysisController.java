@@ -28,9 +28,9 @@ public class AnalysisController {
         if(session.getAttribute("adminLoginUser") != null){
 
             model.addAttribute("commodityType",commodityType);
-            return "/adminPage/analysisResult";
+            return "adminPage/analysisResult";
         }
         model.addAttribute("commodityType",commodityType);
-        return "/analysis/analysisResult";
+        return "analysis/analysisResult";
     }
 }

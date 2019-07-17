@@ -7,10 +7,7 @@ import com.wp.demo.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
@@ -35,6 +32,7 @@ public class LoginController {
      * @param session
      * @return
      */
+    @ResponseBody
     @RequestMapping(value = "/usr/login",method = RequestMethod.POST)
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
@@ -48,11 +46,13 @@ public class LoginController {
             session.setAttribute("loginUser",username);
             //将该登录用户保存到session域中，便于后面取用用户信息
             session.setAttribute("customer",customer);
-            return "redirect:/shopping/goshoppingbypage";
+            //return "redirect:/shopping/goshoppingbypage";
+            return "true";
         }else {
             //登录失败，返回登录页，给出提示信息
-            map.put("msg","用户名密码错误！");
-            return "login";
+            //map.put("msg","用户名密码错误！");
+            //return "/loginTemplate/index";
+            return "false";
         }
     }
 

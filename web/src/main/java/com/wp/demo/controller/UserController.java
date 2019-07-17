@@ -1,6 +1,13 @@
 package com.wp.demo.controller;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.wp.demo.bean.Commodity;
 import com.wp.demo.bean.Customer;
+import com.wp.demo.bean.ViewContent;
+import com.wp.demo.service.ProductService;
+import com.wp.demo.service.UserContentService;
 import com.wp.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,8 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by Administrator on 2019/2/24.
@@ -20,6 +29,12 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ProductService productService;
+
+    @Autowired
+    UserContentService userContentService;
 
     /**
      * 点击跳转到个人中心去
@@ -32,6 +47,39 @@ public class UserController {
     }
 
     /**
+     * 点击跳转到个人中心去--->万佳修改
+     * @return
+     */
+    @GetMapping(value = "/user/personalInfo")
+    public String toPersonalInfo(@RequestParam(defaultValue = "1") int pageNo,
+                                 @RequestParam(defaultValue = "6") int pageSize,Model model, HttpSession session) throws Exception{
+        PageHelper.startPage(pageNo, pageSize,true);
+        Customer customer = (Customer) session.getAttribute("customer");
+        //如果用户已经登录
+        if (customer != null){
+            Page<ViewContent> contents = userContentService.findAllById(customer.getUid());
+            if(contents!=null){
+                PageInfo<ViewContent> page = new PageInfo<>(contents,5);
+                model.addAttribute("pageInfo",page);
+            }
+            else {
+                model.addAttribute("pageInfo",new PageInfo<>());
+            }
+            List<Commodity> commodities = productService.findLastUpdateCommodity();
+            //用于分页条显示
+            if(commodities != null){
+                PageInfo<Commodity> page = new PageInfo<>(commodities,5);
+                model.addAttribute("pageInfoEx",page);
+            }else {
+                model.addAttribute("pageInfoEx",new PageInfo<>());
+            }
+            model.addAttribute("customer",customer);
+        }
+        return "userPage/personalInfo";
+    }
+
+
+    /**
      * 点击跳转到关于我们界面
      * @return
      */
@@ -39,9 +87,9 @@ public class UserController {
     public String toAboutUs(HttpSession session){
 
         if(session.getAttribute("adminLoginUser") != null){
-            return "/adminPage/aboutUs";
+            return "adminPage/aboutUs";
         }
-        return "/userPage/aboutUs";
+        return "userPage/aboutUs";
     }
 
     /**
@@ -85,7 +133,10 @@ public class UserController {
             Customer customerById = userService.findCustomerById(customer.getUid());
             model.addAttribute("customer",customerById);
             model.addAttribute("PersonalInfo","修改信息成功！");
-            return "/userPage/personalInfo";
+            model.addAttribute("msg","用户信息已修改，请重新登录");
+            //return "/userPage/personalInfo";
+            //return "redirect:/user/personalInfo";
+            return "login";
         }else {
             model.addAttribute("msg","请先登录");
             //未登录则返回登录界面提示登录

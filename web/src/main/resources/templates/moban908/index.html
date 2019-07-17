@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>用户登录</title>
+    <link th:href="@{/asserts/css/style.css}" rel='stylesheet' type='text/css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="App Loction Form,Login Forms,Sign up Forms,Registration Forms,News latter Forms,Elements"./>
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+        function hideURLbar(){ window.scrollTo(0,1); }
+    </script>
+    <!--webfonts-->
+        <!--//webfonts-->
+    <style>
+    .headImg {
+        vertical-align: middle;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100px;
+
+    }
+    body{
+        background: url(/images/1.jpg)repeat;
+    }
+    .app-location{
+
+    }
+    .app-location input[type="text"], .app-location input[type="password"] {
+        background: url(/images/icons.png) no-repeat 14px 17px #474a55;
+    }
+    .app-location input[type="password"] {
+        background: url(/images/icons.png) no-repeat 14px -41px #474a55;
+        background-size: 11%;
+    }
+    .app-location input[type="text"],.app-location input[type="password"]{
+        background: url(/images/icons.png) no-repeat 14px 16px #474a55;
+    }
+    .app-location input[type="password"]{
+        background: url(/images/icons.png) no-repeat 13px -61px #474a55;
+    }
+    </style>
+    </head>
+    <body>
+    <h1>欢迎登陆</h1>
+    <div class="app-location" >
+        <h2>Welcome to Locaticus</h2>
+    <div class="line"><span></span></div>
+        <div class="location"><img class = "headImg" th:src="@{/images/touxiang.jpg}"  alt="" /></div>
+        <form  th:action="@{/usr/login}" method="post">
+            <p style="color: red" th:text="${msg}" th:if="${ not #strings.isEmpty(msg)}"></p>
+            <input type="text" class="text" name="username" value="UserName" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'userName';}" >
+            <input type="password" name="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
+            <div class="submit"><input type="submit" value="Sign in" ></div>
+
+    <div class="clear">
+        <a class="btn btn-sm"  th:href="@{/index.html(l='zh_CN')}">© 中文</a>
+        <a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">© English</a>
+    </div>
+        <div class="new">
+            <!--<h3><a href="/regist/registAccount">注册账号 ?</a></h3>
+            <h4><a href="/usr/switchToAdmin">管理员登录</a></h4>-->
+        <div class="clear">
+
+        </div>
+        </div>
+        </form>
+        </div>
+        <!--start-copyright-->
+        <div class="copy-right">
+
+        </div>
+        <!--//end-copyright-->
+        </body>
+        </html>

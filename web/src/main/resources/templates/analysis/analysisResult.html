@@ -5,44 +5,64 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<title>Data Analysis</title>
+	<title>今日排行</title>
 	<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
 	<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+	<!-- animate CSS-->
+	<link href="asserts/css/animate.css"th:href="@{/asserts/css/animate.css}" rel="stylesheet" >
+	<!--favicon-->
+	<link rel="icon" href="asserts/img/favicon.ico" th:href="@{/asserts/img/favicon.ico}" type="image/x-icon">
+	<!-- Icons CSS-->
+	<link href="asserts/css/icons.css" th:href="@{/asserts/css/icons.css}" rel="stylesheet">
+	<!-- Sidebar CSS-->
+	<link href="asserts/css/sidebar-menu.css" th:href="@{/asserts/css/sidebar-menu.css}" rel="stylesheet"/>
+	<!-- Custom Style-->
+	<link href="asserts/css/app-style.css" th:href="@{/asserts/css/app-style.css}" rel="stylesheet"/>
+	<!--favicon-->
+	<link rel="icon" href="asserts/img/favicon.ico" type="image/x-icon">
+	<!-- simplebar CSS-->
+	<link href="asserts/css/simplebar.css" th:href="@{/asserts/css/simplebar.css}" rel="stylesheet"/>
 	<script th:src="@{/asserts/js/echarts.min.js}"></script>
 </head>
 
-<body style="background-color: #b1dfbb">
-<!--引入topbar！！！-->
-<div th:replace="~{commons/bar::topbar}"></div>
+<body style="background-color: #f6f9fc!important;">
+<!-- Start wrapper-->
+<div id="wrapper" >
+	<!--引入topbar！！！-->
+	<div th:replace="~{commons/bar::topbar}"></div>
 
-<div class="container-fluid">
-	<div class="row">
-		<!--引入sidebar-->
-		<div th:replace="~{commons/bar::#sidebar(activeUri='analysisResult.html')}"></div>
-		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-			<h3>今日数据分析</h3>
-			<p><h5>图表说明：</h5></p>
-			<p><h6>下面的图表是利用大数据对每日消费的商品总量的一个情况分析！</h6></p>
-			<table>
-				<tr>
-					<td><span style="text-align: center"><h5>柱状图显示</h5></span></td>
-					<td style="text-align: right"><span style="text-align: center"><h5>扇形图显示</h5></span></td>
-				</tr>
-				<tr>
-					<td><!-- 为 ECharts 准备一个具备大小（宽高）的 DOM,图标组件容器 -->
-						<div id="main" style="width: 500px;height:400px; float: left" >
-						</div>
-					</td>
-					<td>
-						<div id="two" style="width: 500px;height:400px; float: left">
-						</div>
-					</td>
-				</tr>
-			</table>
-		</main>
+	<div class="container-fluid">
+		<div class="row">
+			<!--引入sidebar-->
+			<div th:replace="~{commons/bar::#sidebar(activeUri='analysisResult.html')}"></div>
+			<div class="content-wrapper">
+				<div class="container-fluid">
+					<main role="main" class="col-md-12 pt-3 px-4">
+						<h3>今日数据分析</h3>
+						<p><h5>图表说明：</h5></p>
+						<p><h6>下面的图表是利用大数据对每日消费的商品总量的一个情况分析！</h6></p>
+						<table>
+							<tr>
+								<td><span style="text-align: center"><h5>柱状图显示</h5></span></td>
+								<td style="text-align: right"><span style="text-align: center"><h5>扇形图显示</h5></span></td>
+							</tr>
+							<tr>
+								<td><!-- 为 ECharts 准备一个具备大小（宽高）的 DOM,图标组件容器 -->
+									<div id="main" style="width: 500px;height:400px; float: left" >
+									</div>
+								</td>
+								<td>
+									<div id="two" style="width: 500px;height:400px; float: left">
+									</div>
+								</td>
+							</tr>
+						</table>
+					</main>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
-
 <script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/asserts/js/jquery-3.3.1.min.js}" ></script>
 <script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
 <script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>

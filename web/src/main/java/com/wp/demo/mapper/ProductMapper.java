@@ -13,7 +13,7 @@ import java.util.List;
 public interface ProductMapper {
 
     //查询出所有的商品，并且保证该商品的数量不等于0
-    @Select("select * from commodity where count != 0")
+    @Select("select * from commodity where count != 0 order by pid desc")
     public Page<Commodity> getAllCommodity();
 
 
@@ -21,7 +21,7 @@ public interface ProductMapper {
     public Commodity findById(Integer id);
 
     //增加一件二手商品  需返回自增主键（使用返回的商品的主键然后将该值放入对应的用户的商品字段中）
-    @Insert("insert into commodity(name,price,note,photo,count,author_id,date,tid) values(#{name},#{price},#{note},#{photo},#{count},#{authorId},#{date},#{tid})")
+    @Insert("insert into commodity(name,price,note,photo,count,author_id,date,tid,flag) values(#{name},#{price},#{note},#{photo},#{count},#{authorId},#{date},#{tid},#{flag})")
     @Options(useGeneratedKeys = true, keyProperty = "pid", keyColumn = "pid")
     public int doCreate(Commodity commodity);
 
@@ -51,5 +51,9 @@ public interface ProductMapper {
 
     public Integer doUpdate(Commodity commodity);
 
+    @Select("select * from commodity order by pid desc limit 0,5 ")
+    List<Commodity> findLastUpdateCommodity();
 
+    @Select("select * from commodity  where flag = 1 order by pid desc")
+    Page<Commodity> findAllWantBuyCommodities();
 }

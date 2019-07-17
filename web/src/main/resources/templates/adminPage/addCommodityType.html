@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>增加商品类型</title>
+  <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+  <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+  <style>
+    input {
+      width:100%;
+      height:40px;
+      border:1px solid #dbdbdb;
+      outline:none;
+      font-size:20px;
+      text-indent:10px;
+      vertical-align: middle;
+      justify-content: center;
+      align-items: center;
+      border-radius: 20px;
+    }
+    label {
+      position:relative;
+      width:400px;
+      margin:10px auto;
+      display:inline-block;
+    }
+    label:after {
+      content:"";
+      display:inline-block;
+      width:0;
+      height:2px;
+      background:red;
+      transition:width 1s;
+      position:absolute;
+      bottom:1px;
+      left:1px;
+    }
+  </style>
+</head>
+
+<body style="background-color: #F2F2F2">
+<!--引入抽取的topbar,使用thymeleaf的语法th:replace="~{模板名::模块名或选择器}" -->
+<div th:replace="~{commons/bar-back::topbar}"></div>
+
+<div class="container-fluid">
+  <div class="row">
+    <!--sidebar:从dashboard模板中抽取出来的侧边栏公共页面引入进来-->
+    <div th:replace="~{commons/bar-back::#sidebar(activeUri='addCommodityType.html')}"></div>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" >
+      <br><br><br>
+      <h2 align="center"><span style="color: #0b2e13">商品类型管理</span></h2>
+      <div style="vertical-align: middle;margin-left: 30%">
+        <label>
+          <input maxlength="10">
+        </label>
+        <button type="button" class="btn btn-success addtype">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>
+          新增类型
+        </button>
+      </div>
+      <div style="text-align: center;align-items: center">
+        <form method="post"  action="/user/modifyMySellCommodity" class="form-horizontal validate" enctype="multipart/form-data">
+          <table class="table table-striped table-sm" style="text-align: center;width: 650px;margin:auto;align-items: center" >
+            <tbody th:if="${list != null}">
+            <th>商品类型</th>
+            <th colspan="1">管理</th>
+            <tr th:each="type:${list}">
+              <td th:text="${type.typeName}"></td>
+              <td><button type="button" class="btn btn-default removeUser">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true" ></span>
+                删除
+              </button>
+              </td>
+            </tr>
+
+          </table>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script type="text/javascript" src="asserts/js/jquery-3.3.1.min.js" th:src="@{/asserts/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+<!--引入自定义的js文件-->
+<script language = "javascript" th:src = "@{/asserts/js/myjs.js}"></script>
+<script type="text/javascript">
+    $(function () {
+        //搜索商品
+        adminSearchCommodity();
+    })
+
+</script>
+</body>
+</html>

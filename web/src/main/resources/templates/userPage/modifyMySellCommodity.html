@@ -1,157 +1,163 @@
 <!DOCTYPE html>
 <!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<title>修改我的商品</title>
-		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
-		<link href="asserts/css/bootstrap.min.css" th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
-		<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
-		<style type="text/css">
-			select{
-				font-family: "微软雅黑";
-				background: rgba(23,69,55,180);
-				width: 30px;
-				font-size: 18px;
-				color: white;
-				text-align: center;
-				border: 1px #1a1a1a solid;
-				border-radius: 2px;
-				vertical-align:middle;
-			}
-			option{
-				color: black;
-				background: #34ce57;
-				line-height: 20px;
-			}
-			select:focus{
-				border: 2px #ddd solid;
-				box-shadow: 0 0 15px 1px #DDDDDD;
-			}
-			option:hover{
-				background: #EBCCD1;
-			}
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>修改我的商品</title>
+	<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+	<link href="asserts/css/bootstrap.min.css" th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
+	<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+	<!-- animate CSS-->
+	<link href="asserts/css/animate.css"th:href="@{/asserts/css/animate.css}" rel="stylesheet" >
+	<!-- Icons CSS-->
+	<link href="asserts/css/icons.css" th:href="@{/asserts/css/icons.css}" rel="stylesheet">
+	<!-- Sidebar CSS-->
+	<link href="asserts/css/sidebar-menu.css" th:href="@{/asserts/css/sidebar-menu.css}" rel="stylesheet"/>
+	<!-- Custom Style-->
+	<link href="asserts/css/app-style.css" th:href="@{/asserts/css/app-style.css}" rel="stylesheet"/>
+	<!--favicon-->
+	<link rel="icon" href="asserts/img/favicon.ico" th:href="@{/asserts/img/favicon.ico}" type="image/x-icon">
+	<!-- simplebar CSS-->
+	<link href="asserts/css/simplebar.css" th:href="@{/asserts/css/simplebar.css}" rel="stylesheet"/>
+	<style type="text/css">
+		select{
+			font-family: "微软雅黑";
+			background: rgba(23,69,55,180);
+			width: 30px;
+			font-size: 18px;
+			color: white;
+			text-align: center;
+			border: 1px #1a1a1a solid;
+			border-radius: 2px;
+			vertical-align:middle;
+		}
+		option{
+			color: black;
+			background: #34ce57;
+			line-height: 20px;
+		}
+		select:focus{
+			border: 2px #ddd solid;
+			box-shadow: 0 0 15px 1px #DDDDDD;
+		}
+		option:hover{
+			background: #EBCCD1;
+		}
 
-			.file input {
-				position: absolute;
-				font-size: 100px;
-				right: 0;
-				top: 0;
-				opacity: 0;
-			}
-			input{
-				vertical-align:middle;
-			}
+		.file input {
+			position: absolute;
+			font-size: 100px;
+			right: 0;
+			top: 0;
+			opacity: 0;
+		}
+		input{
+			vertical-align:middle;
+		}
+		body{
+			background-color: #f6f9fc!important;
+		}
+	</style>
+</head>
 
-			.file {
-				position: relative;
-				display: inline-block;
-				background: #D0EEFF;
-				border: 1px solid #99D3F5;
-				border-radius: 4px;
-				padding: 4px 12px;
-				overflow: hidden;
-				color: #1E88C7;
-				text-decoration: none;
-				text-indent: 0;
-				line-height: 30px;
-				margin-left: -14px;
-			}
-			.file input {
-				position: absolute;
-				font-size: 150px;
-				right: 0;
-				top: 0;
-				opacity: 0;
-			}
-			.file:hover {
-				background: #AADFFD;
-				border-color: #78C3F3;
-				color: #004974;
-				text-decoration: none;
-			}
-			.custom-select.d-block.w-100{
-				margin-left: -12px;
-				width: 200px;
-			}
-
-			.col-md-5.mb-3.myfile{
-				margin-left: -12px;
-			}
-
-		</style>
-	</head>
-
-	<body style="background-color: #F2F2F2">
-        <!--引入topbar！！！-->
-        <div th:replace="~{commons/bar::topbar}"></div>
-		<div class="container-fluid">
-			<div class="row">
-                <!--引入sidebar,并设置一个参数使他高亮显示-->
-                <div th:replace="~{commons/bar::#sidebar(activeUri='personalInfo.html')}"></div>
-				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" >
-					<br><br><br>
-					<h2 align="center"><span style="color: #0b2e13">商品信息</span></h3></h2>
-					<div style="text-align: center;">
-						<form method="post" action="/user/modifyMySellCommodity" class="form-horizontal validate" enctype="multipart/form-data">
-							<table class="table table-striped table-sm" style="text-align: center;width: 650px;margin:auto;" >
-								<tbody th:if="${commodity != null}">
-								<tr>
-									<td><span style="color: #34ce57;font-weight: bolder">商品名称：</span></td>
-									<td><input type="text" style="width:200px;" th:value="${commodity.name}" class="form-control" name="name" autofocus=""></td>
-								</tr>
-								<tr>
-									<td><span style="color: #34ce57;font-weight: bolder">出售价格：</span></td>
-									<td><input type="text" style="width:200px;" maxlength="11" th:value="${commodity.price}" class="form-control" name="price" required="" autofocus=""></td>
-								</tr>
-								<tr>
-									<td><span style="color: #34ce57;font-weight: bolder">出售数量:</span></td>
-									<td><input type="text" style="width:200px;" th:value="${commodity.count}"class="form-control" name="count" required="" autofocus=""></td>
-								</tr>
-								<tr>
-									<td><span style="color: #34ce57;font-weight: bolder">商品描述：</span></td>
-									<td><input type="textarea" style="width:200px;" th:value="${commodity.note}" class="form-control" name="note" required="" autofocus=""></td>
-								</tr>
-								<tr>
-									<td><span style="color: #34ce57;font-weight: bolder">商品类别：</span></td>
-									<td>
-										<div class="col-md-5 mb-3" >
-											<select th:name="tid" class="custom-select d-block w-100" style="width: 300px">
-												<option th:each="type:${allCommodityType}" class="dropdown-item" th:selected="${type.id}==${commodity.tid}"  th:value="${type.id}" th:text="${type.typeName}" th:name="tid"></option>
-											</select>
-										</div>
-									</td>
-
-								</tr>
-								<tr>
-									<td><label style="color: #34ce57;font-weight: bolder">    商品图片：</label></td>
-									<td>
-										<div class="col-md-5 mb-3 myfile">
-											<a class="file" href="#">
-												<input type="file"  name="file" id = "file">点击这里上传文件
-											</a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2">
-											<input type="submit" class="btn btn-success" value="确认修改">
-									</td>
-								</tr>
-								<input type="hidden" name="pid" th:value="${commodity.pid}">
-								</tbody>
-							</table>
-							<h3 th:if="${commodity == null}"><span style="color: #dc3545;text-align: center;vertical-align: middle">非法操作：你试图修改不属于你的商品！</span></h3>
-						</form>
-					</div>
-				</main>
+<body style="background-color: #F2F2F2">
+<!-- Start wrapper-->
+<div id="wrapper" >
+	<!--引入topbar！！！-->
+	<div th:replace="~{commons/bar::topbar}"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<!--引入sidebar,并设置一个参数使他高亮显示-->
+			<div th:replace="~{commons/bar::#sidebar(activeUri='personalInfo.html')}"></div>
+			<div class="content-wrapper">
+				<div class="container-fluid">
+					<main role="main" class="col-md-12 pt-3 px-4" >
+						<div class="col-md-12">
+							<h4 class="page-title">修改个人商品信息</h4>
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a th:href="@{/shopping/goshoppingbypage}" >校园二手商品交易中心</a></li>
+								<li class="breadcrumb-item"><a th:href="@{/user/manageMyCommodities}" >管理我的个人商品</a></li>
+								<li class="breadcrumb-item active" aria-current="page">修改商品信息</li>
+							</ol>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="card">
+									<div class="card-body">
+										<form style="width: 800px;"  method="post" action="/user/modifyMySellCommodity" class="form-horizontal validate" enctype="multipart/form-data">
+											<h4 class="form-header text-uppercase">
+												<i class="fa fa-file-text-o"></i>
+												个人商品信息修改
+											</h4>
+											<div class="form-group row">
+												<label for="input-1" class="col-md-2 col-form-label">商品名称：</label>
+												<div class="col-lg-10">
+													<input style="width: 650px;" type="text" th:value="${commodity.name}" class="form-control" id="input-1" name="name" required="" autofocus="">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label for="input-2" class="col-sm-2 col-form-label">出售价格：</label>
+												<div class="col-sm-10">
+													<input style="width: 650px;" type="text" maxlength="11" th:value="${commodity.price}" class="form-control" id="input-2" name="price" required="" autofocus="">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label for="input-3" class="col-sm-2 col-form-label">出售数量：</label>
+												<div class="col-sm-10">
+													<input style="width: 650px;" type="text" th:value="${commodity.count}" class="form-control" id="input-3" name="count" required="" autofocus="">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label for="input-7" class="col-sm-2 col-form-label">商品类别：</label>
+												<div class="col-sm-10">
+													<select style="width: 650px;" id="input-7"  th:name="tid" class="custom-select d-block w-100">
+														<option th:each="type:${allCommodityType}" class="dropdown-item" th:selected="${type.id}==${commodity.tid}"  th:value="${type.id}" th:text="${type.typeName}" th:name="tid"></option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label for="input-7" class="col-sm-2 col-form-label">商品图片：</label>
+												<div class="col-sm-10">
+													<a class="file" href="#">
+														<input type="file" name="file" id = "file">点击这里修改商品图片
+													</a>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label for="input-4" class="col-sm-2 col-form-label">商品描述：</label>
+												<div class="col-sm-10">
+													<textarea rows="4" th:text="${commodity.note}" th:value="${commodity.note}" class="form-control" id="input-4" name="note" required></textarea>
+												</div>
+											</div>
+											<div class="form-footer">
+												<button type="reset" class="btn btn-danger"><i class="fa fa-times"></i>取消</button>
+												<button type="submit" class="btn btn-success"><i class="fa fa-check-square-o"></i>确认修改</button>
+											</div>
+											<input type="hidden" name="pid" th:value="${commodity.pid}">
+											<h3 th:if="${commodity == null}"><span style="color: #dc3545;text-align: center;vertical-align: middle">非法操作：你试图修改不属于你的商品！</span></h3>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div><!--End Row-->
+					</main>
+				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/asserts/js/jquery-3.3.1.min.js}" ></script>
-		<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
-		<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
-	</body>
+	</div>
+</div>
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/asserts/js/jquery-3.3.1.min.js}" ></script>
+<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+<!-- simplebar js -->
+<script type="text/javascript" th:src="@{/asserts/js/simplebar.js}"></script>
+<!-- sidebar-menu js -->
+<script type="text/javascript" th:src="@{/asserts/js/sidebar-menu.js}"></script>
+<!-- Custom scripts -->
+<script type="text/javascript" th:src="@{/asserts/js/app-script.js}"></script>
+</body>
 </html>
